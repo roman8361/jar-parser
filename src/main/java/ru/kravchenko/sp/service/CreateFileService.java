@@ -19,4 +19,11 @@ public class CreateFileService implements ICreateFile {
         writer.close();
     }
 
+    @Override
+    public void writeToFile(String text) throws FileNotFoundException, UnsupportedEncodingException {
+        PrintWriter writer = new PrintWriter("file.txt", "UTF-8");
+        writer.println(text);
+        writer.close();
+    }
+
 }

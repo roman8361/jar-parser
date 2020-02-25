@@ -7,4 +7,6 @@ public interface ICreateFile {
 
     void creatAndWriteFile() throws FileNotFoundException, UnsupportedEncodingException;
 
+    void writeToFile(String text) throws FileNotFoundException, UnsupportedEncodingException;
+
 }

@@ -1,9 +1,11 @@
 package ru.kravchenko.sp.service;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kravchenko.sp.api.IBootstrapService;
 import ru.kravchenko.sp.api.ICreateFile;
+import ru.kravchenko.sp.api.IRequestService;
 import ru.kravchenko.sp.api.IUserRepository;
 import ru.kravchenko.sp.entity.User;
 
@@ -19,15 +21,14 @@ public class BootstrapService implements IBootstrapService {
     @Autowired
     ICreateFile createFile;
 
+    @Autowired
+    IRequestService requestService;
+
     @Override
+    @SneakyThrows
     public void init() {
-        try {
-            createFile.creatAndWriteFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        String body = requestService.getRequest();
+        createFile.writeToFile(body);
     }
 
     private User getAnyUser() {
@@ -43,6 +44,16 @@ public class BootstrapService implements IBootstrapService {
         }
         System.out.println("Show all user");
         userRepository.showAllUser();
+    }
+
+    private void creatFileMethod() {
+        try {
+            createFile.creatAndWriteFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 }
