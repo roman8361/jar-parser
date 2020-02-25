@@ -3,10 +3,7 @@ package ru.kravchenko.sp.service;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import ru.kravchenko.sp.api.IBootstrapService;
-import ru.kravchenko.sp.api.ICreateFileService;
-import ru.kravchenko.sp.api.IRequestService;
-import ru.kravchenko.sp.api.IUserRepository;
+import ru.kravchenko.sp.api.*;
 import ru.kravchenko.sp.entity.User;
 
 import java.io.FileNotFoundException;
@@ -24,11 +21,14 @@ public class BootstrapService implements IBootstrapService {
     @Autowired
     IRequestService requestService;
 
+    @Autowired
+    ICreateExcelFileService createExcelFileService;
+
     @Override
     @SneakyThrows
     public void init() {
-        String body = requestService.getRequest();
-        createFile.writeToFile(body);
+        createExcelFileService.createExcelFile("test.xls");
+
     }
 
     private User getAnyUser() {
@@ -54,6 +54,12 @@ public class BootstrapService implements IBootstrapService {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
+    }
+
+    @SneakyThrows
+    private void creatRequest() {
+        String body = requestService.getRequest();
+        createFile.writeToFile(body);
     }
 
 }
