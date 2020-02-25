@@ -3,8 +3,12 @@ package ru.kravchenko.sp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kravchenko.sp.api.IBootstrapService;
+import ru.kravchenko.sp.api.ICreateFile;
 import ru.kravchenko.sp.api.IUserRepository;
 import ru.kravchenko.sp.entity.User;
+
+import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 
 @Service
 public class BootstrapService implements IBootstrapService {
@@ -12,8 +16,25 @@ public class BootstrapService implements IBootstrapService {
     @Autowired
     IUserRepository userRepository;
 
+    @Autowired
+    ICreateFile createFile;
+
     @Override
     public void init() {
+        try {
+            createFile.creatAndWriteFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private User getAnyUser() {
+        return new User();
+    }
+
+    private void anyMethodUserRepository() {
         System.out.println("Hello this is init in BootstrapService");
         for (int i = 0; i < 5; i++) {
             User user = getAnyUser();
@@ -22,10 +43,6 @@ public class BootstrapService implements IBootstrapService {
         }
         System.out.println("Show all user");
         userRepository.showAllUser();
-    }
-
-    private User getAnyUser() {
-        return new User();
     }
 
 }
