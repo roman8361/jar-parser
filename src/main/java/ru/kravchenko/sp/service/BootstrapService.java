@@ -4,7 +4,7 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kravchenko.sp.api.IBootstrapService;
-import ru.kravchenko.sp.api.ICreateFile;
+import ru.kravchenko.sp.api.ICreateFileService;
 import ru.kravchenko.sp.api.IRequestService;
 import ru.kravchenko.sp.api.IUserRepository;
 import ru.kravchenko.sp.entity.User;
@@ -19,7 +19,7 @@ public class BootstrapService implements IBootstrapService {
     IUserRepository userRepository;
 
     @Autowired
-    ICreateFile createFile;
+    ICreateFileService createFile;
 
     @Autowired
     IRequestService requestService;
