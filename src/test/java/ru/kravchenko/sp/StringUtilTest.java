@@ -27,4 +27,11 @@ public class StringUtilTest {
         Assert.assertSame(111, stringUtilService.getLastPaginatorNumber(paginatorTest2));
     }
 
+    @Test
+    public void testStringPlusInt() {
+        String url = "https://www.yp.ru/list/magaziny_santekhnika/page/";
+        Integer page = 2;
+        System.out.println(url + page);
+    }
+
 }

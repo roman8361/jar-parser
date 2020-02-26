@@ -6,4 +6,8 @@ public interface IRequestService {
 
     void postRequest();
 
+    Integer getNumberPaginator(String currentUrl);
+
+    String getAllHtmlOnePage(Integer page);
+
 }
