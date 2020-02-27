@@ -25,11 +25,11 @@ public class Company extends AbstractEntity {
     public String toString() {
         return "Company{" +
                 "name='" + name + '\'' +
+                ", url='" + url + '\'' +
                 ", description='" + description + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", url='" + url + '\'' +
                 ", hidingId='" + hidingId + '\'' +
-                ", id='" + this.getId() + '\'' +
+ //               ", id='" + this.getId() + '\'' + //если нужны будут id сущность разкомментить
                 '}';
     }
 

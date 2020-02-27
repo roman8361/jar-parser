@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.kravchenko.sp.api.IRequestService;
-import ru.kravchenko.sp.constant.Constant;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = App.class)
@@ -23,12 +22,13 @@ public class RequestServiceTest {
 
     @Test
     public void getNumberPaginator() {
-        Assert.assertSame(24, requestService.getNumberPaginator(Constant.URL));
+        Assert.assertSame(24, requestService.getNumberPaginator());
     }
 
     @Test
     public void testGetAllHtmlOnePage() {
-        System.out.println(requestService.getAllHtmlOnePage(1));
+        System.out.println(requestService.getAllHtmlOnePage(24));
+        Assert.assertNotNull(requestService.getAllHtmlOnePage(24));
     }
 
 }

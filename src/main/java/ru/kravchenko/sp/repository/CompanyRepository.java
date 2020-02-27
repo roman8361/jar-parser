@@ -31,9 +31,7 @@ public class CompanyRepository {
         companyList.remove(company);
     }
 
-    public List<Company> getAll() {
-        return companyList;
-    }
+    public List<Company> getAll() { return companyList; }
 
     public void showAll() {
         companyList.forEach(System.out::println);

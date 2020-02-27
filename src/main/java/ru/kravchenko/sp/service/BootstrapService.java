@@ -4,16 +4,13 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kravchenko.sp.api.*;
-import ru.kravchenko.sp.entity.User;
+import ru.kravchenko.sp.util.StringUtil;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
 @Service
 public class BootstrapService implements IBootstrapService {
-
-    @Autowired
-    IUserRepository userRepository;
 
     @Autowired
     ICreateFileService createFile;
@@ -24,34 +21,28 @@ public class BootstrapService implements IBootstrapService {
     @Autowired
     ICreateExcelFileService createExcelFileService;
 
+    @Autowired
+    IParserService parserService;
+
     @Override
     @SneakyThrows
     public void init() {
-        createExcelFileService.createExcelFile("test.xls");
-
-    }
-
-    private User getAnyUser() {
-        return new User();
-    }
-
-    private void anyMethodUserRepository() {
-        System.out.println("Hello this is init in BootstrapService");
-        for (int i = 0; i < 5; i++) {
-            User user = getAnyUser();
-            System.out.println("Get user, id = " + user.getId());
-            userRepository.insertUser(user);
+        Integer countPaginator = requestService.getNumberPaginator();
+        for (int i = 1; i < countPaginator + 1; i++) {
+            String onePageHtml = requestService.getAllHtmlOnePage(1);
+            parserService.fillUserRepository(onePageHtml);
         }
-        System.out.println("Show all user");
-        userRepository.showAllUser();
+    }
+
+    @SneakyThrows
+    private void creatExcelFile() {
+        createExcelFileService.createExcelFile("test.xls");
     }
 
     private void creatFileMethod() {
         try {
             createFile.creatAndWriteFile();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
+        } catch (FileNotFoundException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
     }

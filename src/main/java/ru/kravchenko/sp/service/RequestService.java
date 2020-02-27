@@ -6,19 +6,15 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kravchenko.sp.api.IRequestService;
+import ru.kravchenko.sp.constant.Constant;
+import ru.kravchenko.sp.util.StringUtil;
 
-
-import javax.print.Doc;
 import java.io.IOException;
 
 @Service
 public class RequestService implements IRequestService {
-
-    @Autowired
-    private StringUtilService stringUtilService;
 
     private final OkHttpClient httpClient = new OkHttpClient();
 
@@ -50,16 +46,16 @@ public class RequestService implements IRequestService {
 
     @Override
     @SneakyThrows
-    public Integer getNumberPaginator(String currentUrl) {
-        Document doc = Jsoup.connect(currentUrl).get();
+    public Integer getNumberPaginator() {
+        Document doc = Jsoup.connect(Constant.URL_PAGE_1).get();
         String rowPaginator = doc.getElementsByClass("ui_last_page").toString(); // получить пагинацию
-        return stringUtilService.getLastPaginatorNumber(rowPaginator);
+        return StringUtil.getLastPaginatorNumber(rowPaginator);
     }
 
     @Override
     @SneakyThrows
     public String getAllHtmlOnePage(Integer page) {
-        String updateUrl = "https://www.yp.ru/list/magaziny_santekhnika/page/" + page;
+        String updateUrl = Constant.URL + page;
         Document document = Jsoup.connect(updateUrl).get();
         return document.toString();
     }
