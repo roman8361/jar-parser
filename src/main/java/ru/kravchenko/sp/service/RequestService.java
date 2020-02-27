@@ -1,9 +1,8 @@
 package ru.kravchenko.sp.service;
 
 import lombok.SneakyThrows;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
+import org.jsoup.HttpStatusException;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
@@ -56,8 +55,37 @@ public class RequestService implements IRequestService {
     @SneakyThrows
     public String getAllHtmlOnePage(Integer page) {
         String updateUrl = Constant.URL + page;
-        Document document = Jsoup.connect(updateUrl).get();
-        return document.toString();
+        try {
+            Document document = Jsoup.connect(updateUrl).get();
+            return document.toString();
+        } catch (HttpStatusException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public String getPhoneCompany(String idContact) {
+        RequestBody formBody = new FormBody.Builder()
+                .add("contact_id", idContact)
+                .build();
+
+        Request request = new Request.Builder()
+                .url(Constant.URL_GET_TELEPHONE)
+                .addHeader("User-Agent", "OkHttp Bot")
+                .post(formBody)
+                .build();
+
+        try (Response response = httpClient.newCall(request).execute()) {
+
+            if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+            return response.body().string();
+        } catch (IOException | IllegalStateException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
+
+

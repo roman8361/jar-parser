@@ -2,7 +2,6 @@ package ru.kravchenko.sp;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +32,7 @@ public class ParserServiceTest {
 
     @Test
     public void testFillUserRepository() {
-        parserService.fillUserRepository(html);
+        parserService.fillCompanyRepository(html);
         companyRepository.showAll();
         Assert.assertEquals(21, companyRepository.getAll().size());
     }

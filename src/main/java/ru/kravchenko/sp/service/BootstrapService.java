@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.kravchenko.sp.api.*;
-import ru.kravchenko.sp.util.StringUtil;
 
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
@@ -30,7 +29,7 @@ public class BootstrapService implements IBootstrapService {
         Integer countPaginator = requestService.getNumberPaginator();
         for (int i = 1; i < countPaginator + 1; i++) {
             String onePageHtml = requestService.getAllHtmlOnePage(1);
-            parserService.fillUserRepository(onePageHtml);
+            parserService.fillCompanyRepository(onePageHtml);
         }
     }
 

@@ -10,4 +10,6 @@ public interface IRequestService {
 
     String getAllHtmlOnePage(Integer page);
 
+    String getPhoneCompany(String idContact);
+
 }

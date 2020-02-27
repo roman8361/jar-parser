@@ -25,6 +25,11 @@ public class CompanyRepository {
         return companyList.stream().filter(x -> x.getId().equals(id)).findAny().orElse(null);
     }
 
+    public Company findByContactId(String contactId) {
+        if (contactId == null || contactId.isEmpty()) return null;
+        return companyList.stream().filter(x -> x.getHidingId().equals(contactId)).findAny().orElse(null);
+    }
+
     public void delById(String id) {
         if (id == null || id.isEmpty()) return;
         Company company = companyList.stream().filter(x -> x.getId().equals(id)).findAny().orElse(null);

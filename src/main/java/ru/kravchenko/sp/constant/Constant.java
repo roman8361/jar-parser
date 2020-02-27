@@ -10,4 +10,6 @@ public final class Constant {
 
     public final static String URL_PAGE_1 = "https://www.yp.ru/list/magaziny_santekhnika/page/1/";
 
+    public final static String URL_GET_TELEPHONE = "https://www.yp.ru/ajax/GetPhoneByContactId";
+
 }
