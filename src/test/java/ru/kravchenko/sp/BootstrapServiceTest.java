@@ -27,7 +27,7 @@ public class BootstrapServiceTest {
     @SneakyThrows
     public void testInitBootstrapService() {
         bootstrapService.init();
-        createExcelFileService.createExcelFile("plumbing.xls");
+     //   createExcelFileService.createExcelFile("plumbing.xls");
     }
 
 }

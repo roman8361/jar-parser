@@ -31,6 +31,7 @@ public class BootstrapService implements IBootstrapService {
             String onePageHtml = requestService.getAllHtmlOnePage(1);
             parserService.fillCompanyRepository(onePageHtml);
         }
+        createExcelFileService.createExcelFile("plumbing.xls");
     }
 
     @SneakyThrows
